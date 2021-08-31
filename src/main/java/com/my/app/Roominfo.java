@@ -49,6 +49,4 @@ public class Roominfo {
    public void setHowmuch(int howmuch) {
       this.howmuch = howmuch;
    }
-   
-   
 }

@@ -67,7 +67,11 @@ public class HomeController {
 		// 여기서 interface 호출, 결과를 room.jsp로 전송.
 		iRoom room=sqlSession.getMapper(iRoom.class);
 		ArrayList<Roominfo> roominfo=room.getRoomList();
-		model.addAttribute("list",roominfo); 
+		model.addAttribute("list",roominfo);
+		
+		iRoom room_type=sqlSession.getMapper(iRoom.class);
+		ArrayList<Roomtype> roomtype=room_type.getRoomType();
+		model.addAttribute("list2",roomtype);
 		return "room";
 	}
 	@RequestMapping(value="/check_user", method = RequestMethod.POST)
