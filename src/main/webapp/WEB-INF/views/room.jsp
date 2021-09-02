@@ -25,7 +25,7 @@
         	<table>
         	<tr>
         		<td align=right>객실명</td>
-        		<td><input type=text id=txtName><input type=hidden id=roomcode></td>
+        		<td><input type=text id=txtName><input type=text id=roomcode></td>
         	</tr>
         	<tr>
         		<td align=right>타입</td>
@@ -114,13 +114,23 @@ $(document)
 		alert('누락된 값이 있습니다.');
 		return false;
 	}
-	$.post('http://localhost:8079/addRoom',{roomname:roomname,roomtype:roomtype,howmany:howmany,howmuch:howmuch},
-			function(result){
-				if(result=='ok'){
-					location.reload();
-				}
-		
-	},'text');
+	let roomcode=$('#roomcode').val();
+	if(roomcode=='') {
+		$.post('http://localhost:8079/addRoom',{roomname:roomname,roomtype:roomtype,howmany:howmany,howmuch:howmuch},
+				function(result){
+					if(result=='ok'){
+						location.reload();
+					}
+				},'text');	
+	} else {
+		$.post('http://localhost:8079/updateRoom',{roomcode:roomcode,roomname:roomname,roomtype:roomtype,howmany:howmany,howmuch:howmuch},
+				function(result){
+					if(result=='ok'){
+						location.reload();
+					}
+		},'text');
+	}
+	
 })
 
 </script>
