@@ -15,11 +15,11 @@
 	<table border=1>
 	<tr>
 		<td>        
-	       <%--  <select size=10 style='width:250px;'>
-	        <c:forEach items="${list}" var="room">
+	        <select size=10 style='width:250px;' id=selRoom>
+	        <%-- <c:forEach items="${list}" var="room">
 	        	<option id=rn value='${room.roomcode}'>${room.roomname},${room.typename},${room.howmany},${room.howmuch}</option>
-	        </c:forEach>
-	        </select> --%>
+	        </c:forEach> --%>
+	        </select>
         </td>
         <td>
         	<table>
@@ -62,9 +62,13 @@ $(document)
 .ready(function(){
 	$.post("http://localhost:8079/getRoomList",{},function(result){
 		console.log(result);
+		$.each(result,function(ndx,value) {
+			str='<option value="'+value['roomcode']+'">'+value['roomname']+','+value['typename']+','+value['howmany']+','+value['howmuch']+'</option>';
+			$('#selRoom').append(str);
+		})
 	},'json');
 })
-.on('click','#rn',function(){
+.on('click','#selRoom option:selected',function(){
 	let info = $(this).text().split(",");
 	let code = $(this).val();
 	$('#txtName').val(info[0]);
@@ -89,6 +93,34 @@ $(document)
 	$('#txtName,#txtNum,#txtPrice,#roomcode').val('');
 	$('#selType option:selected').prop('selected',false);
 	return false;
+})
+.on('click','#btnDelete',function(){
+	$.post('http://localhost:8079/deleteRoom',{roomcode:$('#roomcode').val()},
+			function(result){
+		console.log(result);
+		if(result=="ok") {
+			$('#btnEmpty').trigger('click');//입력칸 비우기
+			$('#selRoom option:selected').remove();//room 리스트에서 제거.
+		}
+	},'text');
+})
+.on('click','#btnAdd',function(){
+	let roomname=$('#txtName').val();
+	let roomtype=$('#selType').val();
+	let howmany=$('#txtNum').val();
+	let howmuch=$('#txtPrice').val();
+	// 유효성 검사(validation)
+	if(roomname==''||roomtype==''||howmany==''||howmuch==''){
+		alert('누락된 값이 있습니다.');
+		return false;
+	}
+	$.post('http://localhost:8079/addRoom',{roomname:roomname,roomtype:roomtype,howmany:howmany,howmuch:howmuch},
+			function(result){
+				if(result=='ok'){
+					location.reload();
+				}
+		
+	},'text');
 })
 
 </script>
