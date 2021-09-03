@@ -23,4 +23,5 @@
    		update room set name=#{param2},type=#{param3},howmany=#{param4},howmuch=#{param5}
    		where roomcode=#{param1}
    </update>
+  
 </mapper>

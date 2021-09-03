@@ -115,14 +115,14 @@ $(document)
 		return false;
 	}
 	let roomcode=$('#roomcode').val();
-	if(roomcode=='') {
+	if(roomcode=='') {//insert
 		$.post('http://localhost:8079/addRoom',{roomname:roomname,roomtype:roomtype,howmany:howmany,howmuch:howmuch},
 				function(result){
 					if(result=='ok'){
 						location.reload();
 					}
 				},'text');	
-	} else {
+	} else {//update
 		$.post('http://localhost:8079/updateRoom',{roomcode:roomcode,roomname:roomname,roomtype:roomtype,howmany:howmany,howmuch:howmuch},
 				function(result){
 					if(result=='ok'){

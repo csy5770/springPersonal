@@ -52,10 +52,12 @@ public class HomeController {
 	public String home() {
 		return "home";
 	}
+	
 	@RequestMapping("/login")
 	public String login() {
 		return "login";
 	}
+	
 	@RequestMapping("/newbie")
 	public String newbie() {
 		return "newbie";
@@ -104,18 +106,7 @@ public class HomeController {
 		room.doDeleteRoom(roomcode);
 		return "ok";
 	}
-	@RequestMapping(value="/addRoom",method = RequestMethod.POST,
-			produces="application/text; charset=utf8")
-	@ResponseBody
-	public String addRoom(HttpServletRequest hsr) {
-		String rname=hsr.getParameter("roomname");
-		int rtype=Integer.parseInt(hsr.getParameter("roomtype"));
-		int howmany=Integer.parseInt(hsr.getParameter("howmany"));
-		int howmuch=Integer.parseInt(hsr.getParameter("howmuch"));
-		iRoom room=sqlSession.getMapper(iRoom.class);
-		room.doAddRoom(rname, rtype, howmany, howmuch);
-		return "ok";
-	}
+	
 	@RequestMapping(value="/updateRoom",method = RequestMethod.POST,
 			produces="application/text; charset=utf8")
 	@ResponseBody
@@ -128,14 +119,49 @@ public class HomeController {
 				Integer.parseInt(hsr.getParameter("howmuch")));
 		return "ok";
 	}
+	
+	@RequestMapping(value="/signin",method = RequestMethod.POST,
+			produces="application/text; charset=utf8")
+	public String doSignin(HttpServletRequest hsr) {
+		//insert into member , 작업필요: xml interface jsp controller: 전체 완료
+		iMember member=sqlSession.getMapper(iMember.class);
+		String name=hsr.getParameter("rName");
+		String loginid=hsr.getParameter("newid");
+		String passcode=hsr.getParameter("passcode1");
+		member.doSignin(name, loginid, passcode);
+		return "login";
+	}
+	
+	@RequestMapping(value="/addRoom",method = RequestMethod.POST,
+			produces="application/text; charset=utf8")
+	@ResponseBody
+	public String addRoom(HttpServletRequest hsr) {
+		String rname=hsr.getParameter("roomname");
+		int rtype=Integer.parseInt(hsr.getParameter("roomtype"));
+		int howmany=Integer.parseInt(hsr.getParameter("howmany"));
+		int howmuch=Integer.parseInt(hsr.getParameter("howmuch"));
+		iRoom room=sqlSession.getMapper(iRoom.class);
+		room.doAddRoom(rname, rtype, howmany, howmuch);
+		return "ok";
+	}
+	
 	@RequestMapping(value="/check_user", method = RequestMethod.POST)
 	 public String check_user(HttpServletRequest hsr, Model model) {
 	      String userid=hsr.getParameter("userid");
 	      String userpw=hsr.getParameter("password");
-	      HttpSession session=hsr.getSession();
-	      session.setAttribute("loginid",userid);
-	      return "redirect:/booking";
+	      iMember member=sqlSession.getMapper(iMember.class);
+	      int n=member.doCheckUser(userid, userpw);
+	      if(n>0) {
+	    	  HttpSession session=hsr.getSession();
+		      session.setAttribute("loginid",userid);
+		      return "redirect:/booking";
+	      }
+	      else {//DB에 없는 회원
+	    	  return "home";
+	      }
+	      
 	}
+	
 	@RequestMapping(value="/booking",method = RequestMethod.GET)
 	public String booking(HttpServletRequest hsr) {
 		HttpSession session=hsr.getSession();
