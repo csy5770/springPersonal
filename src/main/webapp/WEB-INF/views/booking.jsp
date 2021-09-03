@@ -6,14 +6,21 @@
 <head>
 <meta charset="UTF-8">
 <title>예약관리</title>
+<style>
+table {
+	width: 100%;
+	border: 1px solid #444444;
+}
+</style>
 </head>
 <body>
 <a href='/room' id="roomControl">객실관리</a>
 <a href='/booking' id="roomReserve">예약관리</a>
 <a href="/logout">로그아웃</a>
 <br>
+
 <div class=area1 style='float:left;'>
-<table border=1>
+<table>
 	<tr>
 		<td>예약기간</td>
 			<td><input type=date id=sDate> ~ <input type=date id=eDate></td>
@@ -29,8 +36,10 @@
 	 </tr>
 	 <tr>
 	 	<td>예약가능 객실</td>
-	 		<td>
- 				<select size=10 style='width:300px;' id=selRoom>
+	 </tr>
+	 <tr>
+	 		<td colspan=2>
+ 				<select size=10 style='width:400px;' id=selRoom>
  					<option>더미</option>
  				</select>
 	 		</td>
@@ -38,7 +47,7 @@
 </table>
 </div>
 <div class=area2 style='float:left; margin-left: 50px;'>
-<table border=1>
+<table>
 	<tr>
 		<td>객실명</td>
 			<td><input type=text id=txtRoomName></td>
@@ -86,13 +95,6 @@
 	</tr>
 </table>
 </div>
-	 
-	 	
-	 
-	 
-	 
-
-
 </body>
 <script src='https://code.jquery.com/jquery-3.5.0.js'></script>
 <script>
