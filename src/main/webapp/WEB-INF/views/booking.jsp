@@ -78,9 +78,9 @@ table {
 	</tr>
 	<tr>
     	<td colspan=2 align=center>
-    		<input type=button value='등록' id=btnAdd>&nbsp;
-    		<input type=button value='삭제' id=btnDelete>&nbsp;
-    		<input type=button value='취소' id=btnEmpty>&nbsp;
+    		<input type=button value='예약완료' id=btnAdd>&nbsp;
+    		<input type=button value='비우기' id=btnDelete>&nbsp;
+    		<input type=button value='예약취소' id=btnEmpty>&nbsp;
     	</td>
 	</tr>
 </table>
