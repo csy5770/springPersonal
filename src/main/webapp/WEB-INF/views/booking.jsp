@@ -1,56 +1,101 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>예약 관리</title>
+<title>예약관리</title>
 </head>
 <body>
-	<div class="area" style="float:left;">
-        <a href='/room' id="roomControl">객실관리</a>
-        <a href='/booking' id="roomReserve">예약관리</a>
-        <br><br>
-        <table style="border: 1px solid black;">
-            <caption>예약된 객실</caption>
-            <colgroup>
-            	<col width="50%">
-                <col height="100%">
-            </colgroup>
-            <tr>
-                <td>
-                    백두산<br>
-                    한라산<br>
-                    태조산<br>
-                    흑성산<br>
-                </td>
-            </tr>
-        </table>
-    </div>
-        <div class="area1" style="float:left; margin-left: 100px;">
-            객실이름 <input type="text" id="rname" name="rname">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="/logout">로그아웃</a><br><br>
-            <table style="border: 1px solid black;">
-                <tr>
-                    <th>객실분류</th>
-                    <td>
-                        <select id="roomselect" name="roomselect" size="5" >
-                            <optgroup label="등급">
-                                <option value="sr">Suite Room</option>
-                                <option value="fr">Family Room</option>
-                                <option value="dr">Double Room</option>
-                                <option value="sgr">Single Room</option>
-                                <option value="dm">Dormitory</option>
-                            </optgroup>
-                         </select>
-                     </td>
-                 </tr>
-            </table>
-            <br>
-            숙박가능인원 <input type="number" id="headcount" name="headcount" min="1">명<br><br>
-            1박요금 <input type="text" id="cost" name="cost">원<br><br>
-            <input type="button" name='submit' id='submit' value='등록'>
-            <input type="button" name='cancel' id='cancel' value='취소'>
-            <input type="button" name='claer' id='claer' value='clear'>
-        </div>
+<a href='/room' id="roomControl">객실관리</a>
+<a href='/booking' id="roomReserve">예약관리</a>
+<a href="/logout">로그아웃</a>
+<br>
+<div class=area1 style='float:left;'>
+<table border=1>
+	<tr>
+		<td>예약기간</td>
+			<td><input type=date id=sDate> ~ <input type=date id=eDate></td>
+	</tr>
+	<tr>
+		<td>객실종류</td>
+			<td>
+				<select size=1 style='width:250px;' id=selType>
+		    		<option>더미</option>
+		    	</select>
+		    	<input type=button id='btnSearch' value='조회'>
+	    	</td>
+	 </tr>
+	 <tr>
+	 	<td>예약가능 객실</td>
+	 		<td>
+ 				<select size=10 style='width:300px;' id=selRoom>
+ 					<option>더미</option>
+ 				</select>
+	 		</td>
+	 </tr>
+</table>
+</div>
+<div class=area2 style='float:left; margin-left: 50px;'>
+<table border=1>
+	<tr>
+		<td>객실명</td>
+			<td><input type=text id=txtRoomName></td>
+	</tr>
+	<tr>
+		<td>객실종류</td>
+			<td><input type=text id=txtType></td>
+	</tr>
+	<tr>
+		<td>예약인원</td>
+			<td><input type=number id=txtNum> 명</td>
+	</tr>
+	<tr>
+		<td>최대인원</td>
+			<td><input type=number id=txtMaxNum> 명</td>
+	</tr>
+	<tr>
+		<td>예약기간</td>
+			<td><input type=date id=sDate2> ~ <input type=date id=eDate2></td>
+	</tr>
+	<tr>
+		<td>예약자명</td>
+			<td><input type=text id=txtName></td>
+	</tr>
+	<tr>
+		<td>모바일</td>
+			<td><input type=text id=mobile></td>
+	</tr>
+	<tr>
+    	<td colspan=2 align=center>
+    		<input type=button value='등록' id=btnAdd>&nbsp;
+    		<input type=button value='삭제' id=btnDelete>&nbsp;
+    		<input type=button value='취소' id=btnEmpty>&nbsp;
+    	</td>
+	</tr>
+</table>
+</div>
+<div class=area3 style='float:left; margin-left: 50px;'>
+<table border=1>
+	<tr>
+		<td colspan=2 align=left>예약된 객실</td>
+	</tr>
+	<tr>
+		<td>객실명,종류,예약인원,최대인원,예약기간,모바일번호,예약자명 더미</td>
+	</tr>
+</table>
+</div>
+	 
+	 	
+	 
+	 
+	 
+
+
 </body>
+<script src='https://code.jquery.com/jquery-3.5.0.js'></script>
+<script>
+
+</script>
 </html>
