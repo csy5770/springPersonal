@@ -78,6 +78,7 @@ public class HomeController {
 		model.addAttribute("list2",roomtype);
 		return "room";
 	}
+	
 	@RequestMapping(value="/getRoomList",method = RequestMethod.POST,
 					produces="application/text; charset=utf8")
 	@ResponseBody
@@ -163,7 +164,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/booking",method = RequestMethod.GET)
-	public String booking(HttpServletRequest hsr) {
+	public String booking(HttpServletRequest hsr, Model model) {
+		iRoom room_type=sqlSession.getMapper(iRoom.class);
+		ArrayList<Roomtype> roomtype=room_type.getRoomType();
+		model.addAttribute("list2",roomtype);
+		
 		HttpSession session=hsr.getSession();
 		String loginid=(String)session.getAttribute("loginid");
 		if(loginid.equals("")|| loginid==null) { 
@@ -172,6 +177,7 @@ public class HomeController {
 		else {
 			return "booking";
 		}
+		
 	}
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest hsr) {

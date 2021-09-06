@@ -9,7 +9,7 @@
 <body>
 <form method=post action="/check_user" id="frmLogin">
 	아이디: <input type=text name="userid"><br>
-	비밀번호: <input type=text name="password"><br><br>
+	비밀번호: <input type=password name="password"><br><br>
 	<input type=submit value="로그인">&nbsp; <a href="/">취소</a>&nbsp; <a href="/newbie">회원가입</a>
 </form>
 </body>
