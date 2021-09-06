@@ -160,12 +160,12 @@ $(document)
 	let name=$('#txtName').val();
 	let mobile=$('#mobile').val();
 	
-	// 유효성 검사(validation)
+	
 	if(roomcode==''||person==''||checkin==''||checkout==''||name==''||mobile==''){
 		alert('누락된 값이 있습니다.');
 		return false;
 	}
-	else {//insert
+	else {
 		$.post('http://localhost:8079/addReserv',{roomcode:roomcode,person:person,checkin:checkin,checkout:checkout,name:name,mobile:mobile},
 				function(result){
 					if(result=='ok'){
