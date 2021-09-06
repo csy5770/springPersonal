@@ -9,5 +9,7 @@
       select a.bookcode, b.roomcode roomcode,b.name roomname, c.name typename, a.person, a.checkin, a.checkout, a.name, a.mobile from booking a, room b, roomtype c
    	  where a.roomcode = b.roomcode and b.type=c.typecode
    </select>
-  
+   <delete id="doDeleteReserv">
+   		delete from booking where bookcode=#{param1}
+   </delete>
 </mapper>

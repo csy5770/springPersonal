@@ -179,8 +179,14 @@ $(document)
 	return false;
 })
 .on('click','#btnCancel',function(){
-	$('#btnEmpty').trigger('click');
-	$('#reserveList option:selected').remove();
+	$.post('http://localhost:8079/deleteReserv',{bookcode:$('#reserveList option:selected').val()},
+			function(result){
+		console.log(result);
+		if(result=="ok") {
+			$('#btnEmpty').trigger('click');//입력칸 비우기
+			$('#reserveList option:selected').remove();//room 리스트에서 제거.
+		}
+	},'text');
 })
 </script>
 </html>
