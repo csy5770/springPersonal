@@ -109,6 +109,14 @@ table {
 <script>
 
 $(document)
+.ready(function(){
+	$.post("http://localhost:8079/getReservList",{},function(result){
+		$.each(result,function(ndx,value) {
+			str='<option value="'+value['bookcode']+'">'+value['roomcode']+','+value['roomname']+','+value['typename']+','+value['person']+','+value['checkin']+'~'+value['checkout']+','+value['name']+','+value['mobile']+'</option>';
+			$('#reserveList').append(str);
+		})
+	},'json');
+})
 .on('click','#btnSearch',function(){
 	$.post("http://localhost:8079/getRoomList",{},function(result){
 		console.log(result);
@@ -134,6 +142,7 @@ $(document)
 		alert('예약 시작일자와 종료일자를 확인하세요.')
 		return false;
 	}
+	$('#roomCode').val(code);
 	$('#txtRoomName').val(info[0]);
 	$('#txtType').val(info[1]);
 	$('#txtMaxNum').val(info[2]);
@@ -144,17 +153,26 @@ $(document)
 	return false;
 })
 .on('click','#btnAdd',function(){
-	if($('#txtMaxNum').val()<$('#txtNum').val()) {
-		alert('예약 인원이 최대인원 수를 초과하였습니다.');
+	let roomcode=$('#roomCode').val();
+	let person=$('#txtNum').val();
+	let checkin=$('#sDate2').val();
+	let checkout=$('#eDate2').val();
+	let name=$('#txtName').val();
+	let mobile=$('#mobile').val();
+	
+	// 유효성 검사(validation)
+	if(roomcode==''||person==''||checkin==''||checkout==''||name==''||mobile==''){
+		alert('누락된 값이 있습니다.');
 		return false;
 	}
-	if($('#txtRoomName').val()!='' && $('#txtType').val()!='' && $('#txtNum').val()!='' && $('#txtMaxNum').val()!='' && $('#sDate2').val()!='' && $('#eDate2').val()!='' && $('#txtName').val()!='' && $('#mobile').val()!='' ) {
-        $('#reserveList').append('<option>'+$('#txtRoomName').val()+' '+$('#txtType').val()+' '+$('#txtNum').val()+'명 '+$('#txtMaxNum').val()+'명 '+$('#sDate2').val()+' ~ '+$('#eDate2').val()+' '+$('#txtPrice').val()+' '+$('#txtName').val()+' '+$('#mobile').val()+' '+'</option>')
-    }
-    else {
-        alert('예약 내용을 모두 채워주세요.');
-        return false;
-    }
+	else {//insert
+		$.post('http://localhost:8079/addReserv',{roomcode:roomcode,person:person,checkin:checkin,checkout:checkout,name:name,mobile:mobile},
+				function(result){
+					if(result=='ok'){
+						location.reload();
+					}
+				},'text');
+	}
 })
 .on('click','#btnEmpty',function(){
 	$('#txtRoomName,#txtType,#txtNum,#txtMaxNum,#txtPrice,#sDate2,#eDate2,#txtName,#mobile,#roomcode').val('');
