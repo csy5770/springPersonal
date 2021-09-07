@@ -98,6 +98,28 @@ public class HomeController {
 		}
 		return ja.toString();
 	}
+	@RequestMapping(value="/getAvailRoom",method = RequestMethod.POST,
+			produces="application/text; charset=utf8")
+	@ResponseBody
+	public String getAvailRoom(HttpServletRequest hsr) {
+	iBook book=sqlSession.getMapper(iBook.class);
+	String checkin = hsr.getParameter("checkin");
+	String checkout = hsr.getParameter("checkout");
+	int typecode = Integer.parseInt(hsr.getParameter("typecode"));
+	ArrayList<Roominfo> availRoom=book.getAvailRoom(checkin, checkout, typecode);
+	//찾은 데이터로 JSONArray 만들기
+	JSONArray ja = new JSONArray();
+	for(int i=0;i<availRoom.size();i++) {
+		JSONObject jo=new JSONObject();
+		jo.put("roomcode", availRoom.get(i).getRoomcode());
+		jo.put("roomname", availRoom.get(i).getRoomname());
+		jo.put("typename", availRoom.get(i).getTypename());
+		jo.put("howmany", availRoom.get(i).getHowmany());
+		jo.put("howmuch", availRoom.get(i).getHowmuch());
+		ja.add(jo);
+	}
+	return ja.toString();
+}
 	@RequestMapping(value="/getReservList",method = RequestMethod.POST,
 			produces="application/text; charset=utf8")
 	@ResponseBody

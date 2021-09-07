@@ -118,7 +118,8 @@ $(document)
 	},'json');
 })
 .on('click','#btnSearch',function(){
-	$.post("http://localhost:8079/getRoomList",{},function(result){
+	$.post("http://localhost:8079/getAvailRoom",{checkin:$('#sDate').val(),checkout:$('#eDate').val(),typecode:$('#selType option:selected').val()},function(result){
+		$('#selRoom').empty();
 		console.log(result);
 		$.each(result,function(ndx,value) {
 			str='<option value="'+value['roomcode']+'">'+value['roomname']+','+value['typename']+','+value['howmany']+','+value['howmuch']+'</option>';
@@ -138,6 +139,7 @@ $(document)
 	let elDate2 = new Date(eDateAr[0],eDateAr[1]-1,eDateAr[2]);
 	let elSec = elDate2.getTime()-elDate1.getTime();
 	let elDay = elSec/1000/60/60/24;
+	
 	if(elDay <= 0) {
 		alert('예약 시작일자와 종료일자를 확인하세요.')
 		return false;
@@ -164,6 +166,10 @@ $(document)
 	
 	if(roomcode==''||person==''||checkin==''||checkout==''||name==''||mobile==''||price==''){
 		alert('누락된 값이 있습니다.');
+		return false;
+	}
+	else if(person>$('#txtMaxNum').val()) {
+		alert('최대 인원을 초과하여 예약할 수 없습니다.')
 		return false;
 	}
 	else {

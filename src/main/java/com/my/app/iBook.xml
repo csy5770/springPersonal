@@ -13,4 +13,15 @@
    <delete id="doDeleteReserv">
    		delete from booking where bookcode=#{param1}
    </delete>
+   <select id="getAvailRoom" resultType="com.my.app.Roominfo">
+   select roomcode, name roomname, 
+      (select name from roomtype where typecode=#{param3}) as typename,
+      howmany, howmuch
+      from room
+      where type=#{param3} and roomcode not in(
+      select roomcode from room
+      INTERSECT
+      select roomcode from booking where (checkin between #{param1} and #{param2}) 
+      or (checkout between #{param1} and #{param2}) or <![CDATA[(checkin<#{param1} and checkout>#{param2}))]]>
+   </select>
 </mapper>
