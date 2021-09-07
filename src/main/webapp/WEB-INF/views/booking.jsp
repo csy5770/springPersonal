@@ -109,15 +109,19 @@ table {
 <script>
 
 $(document)
-.ready(function(){
-	$.post("http://localhost:8079/getReservList",{},function(result){
+.on('click','#btnSearch',function(){
+	if($('#sDate').val()==''||$('#eDate').val()=='') {
+		alert('조회 전 예약 기간을 선택하세요.');
+		return false;
+	}
+	$.post("http://localhost:8079/getReservList",{checkin:$('#sDate').val(),checkout:$('#eDate').val()},function(result){
+		$('#reserveList').empty();
 		$.each(result,function(ndx,value) {
 			str='<option value="'+value['bookcode']+'">'+value['roomcode']+','+value['roomname']+','+value['typename']+','+value['person']+','+value['checkin']+'~'+value['checkout']+','+value['name']+','+value['mobile']+','+value['price']+'</option>';
-			$('#reserveList').append(str);
+			$('#reserveList').append(str);	
 		})
 	},'json');
-})
-.on('click','#btnSearch',function(){
+	
 	$.post("http://localhost:8079/getAvailRoom",{checkin:$('#sDate').val(),checkout:$('#eDate').val(),typecode:$('#selType option:selected').val()},function(result){
 		$('#selRoom').empty();
 		console.log(result);

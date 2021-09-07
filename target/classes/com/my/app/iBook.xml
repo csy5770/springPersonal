@@ -6,13 +6,16 @@
    		values(seq_book.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7})
    </insert>
    <select id="getReservList" resultType="com.my.app.Bookinfo">
-      select a.bookcode, b.roomcode roomcode,b.name roomname, c.name typename, a.person, a.checkin, a.checkout, a.name, a.mobile, a.price
-      from booking a, room b, roomtype c
-   	  where a.roomcode = b.roomcode and b.type=c.typecode
+     select a.bookcode,b.roomcode roomcode, b.name roomname,c.name typename,
+     		a.person, a.checkin,a.checkout,a.name,a.mobile,a.price
+     		from booking a, room b, roomtype c
+     		where <![CDATA[(a.checkout > #{param1} and a.checkin < #{param2})]]>
+     		and a.roomcode=b.roomcode and b.type=c.typecode
+     		order by a.checkin
    </select>
    <delete id="doDeleteReserv">
    		delete from booking where bookcode=#{param1}
-   </delete>
+   </delete> 
    <select id="getAvailRoom" resultType="com.my.app.Roominfo">
    select roomcode, name roomname, 
       (select name from roomtype where typecode=#{param3}) as typename,
