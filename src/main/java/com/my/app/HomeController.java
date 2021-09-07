@@ -131,16 +131,16 @@ public class HomeController {
 		JSONArray ja = new JSONArray();
 		for(int i=0;i<bookinfo.size();i++) {
 			JSONObject jo=new JSONObject();
-			jo.put("bookcode", bookinfo.get(i).getBookcode());//
-			jo.put("roomcode", bookinfo.get(i).getRoomcode());//
-			jo.put("typename", bookinfo.get(i).getTypename());//
-			jo.put("person", bookinfo.get(i).getPerson());//
-			jo.put("checkin", bookinfo.get(i).getCheckin());//
-			jo.put("checkout", bookinfo.get(i).getCheckout());//
-			jo.put("roomname", bookinfo.get(i).getRoomname());//
-			jo.put("name", bookinfo.get(i).getName());//
-			jo.put("mobile", bookinfo.get(i).getMobile());//
-			jo.put("price", bookinfo.get(i).getPrice());//
+			jo.put("bookcode", bookinfo.get(i).getBookcode());
+			jo.put("roomcode", bookinfo.get(i).getRoomcode());
+			jo.put("typename", bookinfo.get(i).getTypename());
+			jo.put("person", bookinfo.get(i).getPerson());
+			jo.put("checkin", bookinfo.get(i).getCheckin());
+			jo.put("checkout", bookinfo.get(i).getCheckout());
+			jo.put("roomname", bookinfo.get(i).getRoomname());
+			jo.put("name", bookinfo.get(i).getName());
+			jo.put("mobile", bookinfo.get(i).getMobile());
+			jo.put("price", bookinfo.get(i).getPrice());
 			
 			ja.add(jo);
 		}
