@@ -21,7 +21,7 @@
       where type=#{param3} and roomcode not in(
       select roomcode from room
       INTERSECT
-      select roomcode from booking where (checkin between #{param1} and #{param2}) 
-      or (checkout between #{param1} and #{param2}) or <![CDATA[(checkin<#{param1} and checkout>#{param2}))]]>
+      select roomcode from booking where (checkin between #{param1} and to_date(#{param2})-1) 
+      or (checkout between to_date(#{param1})+1 and to_date(#{param2})) or <![CDATA[(checkin<#{param1} and checkout>to_date(#{param2})-1))]]> 
    </select>
 </mapper>
