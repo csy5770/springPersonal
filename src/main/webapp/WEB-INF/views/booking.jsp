@@ -99,7 +99,7 @@ table {
 	</tr>
 	<tr>
 		<td>
-			<select size=10 style='width:400px;' id=reserveList></select>
+			<select size=10 style='width:500px;' id=reserveList></select>
 		</td>
 	</tr>
 </table>
@@ -112,7 +112,7 @@ $(document)
 .ready(function(){
 	$.post("http://localhost:8079/getReservList",{},function(result){
 		$.each(result,function(ndx,value) {
-			str='<option value="'+value['bookcode']+'">'+value['roomcode']+','+value['roomname']+','+value['typename']+','+value['person']+','+value['checkin']+'~'+value['checkout']+','+value['name']+','+value['mobile']+'</option>';
+			str='<option value="'+value['bookcode']+'">'+value['roomcode']+','+value['roomname']+','+value['typename']+','+value['person']+','+value['checkin']+'~'+value['checkout']+','+value['name']+','+value['mobile']+','+value['price']+'</option>';
 			$('#reserveList').append(str);
 		})
 	},'json');
@@ -159,14 +159,15 @@ $(document)
 	let checkout=$('#eDate2').val();
 	let name=$('#txtName').val();
 	let mobile=$('#mobile').val();
+	let price=$('#txtPrice').val();
 	
 	
-	if(roomcode==''||person==''||checkin==''||checkout==''||name==''||mobile==''){
+	if(roomcode==''||person==''||checkin==''||checkout==''||name==''||mobile==''||price==''){
 		alert('누락된 값이 있습니다.');
 		return false;
 	}
 	else {
-		$.post('http://localhost:8079/addReserv',{roomcode:roomcode,person:person,checkin:checkin,checkout:checkout,name:name,mobile:mobile},
+		$.post('http://localhost:8079/addReserv',{roomcode:roomcode,person:person,checkin:checkin,checkout:checkout,name:name,mobile:mobile,price:price},
 				function(result){
 					if(result=='ok'){
 						location.reload();

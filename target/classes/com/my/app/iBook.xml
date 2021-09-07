@@ -2,11 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.my.app.iBook">
    <insert id="doAddReserv">
-   		insert into booking(bookcode,roomcode,person,checkin,checkout,name,mobile) 
-   		values(seq_book.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6})
+   		insert into booking(bookcode,roomcode,person,checkin,checkout,name,mobile,price) 
+   		values(seq_book.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7})
    </insert>
    <select id="getReservList" resultType="com.my.app.Bookinfo">
-      select a.bookcode, b.roomcode roomcode,b.name roomname, c.name typename, a.person, a.checkin, a.checkout, a.name, a.mobile from booking a, room b, roomtype c
+      select a.bookcode, b.roomcode roomcode,b.name roomname, c.name typename, a.person, a.checkin, a.checkout, a.name, a.mobile, a.price
+      from booking a, room b, roomtype c
    	  where a.roomcode = b.roomcode and b.type=c.typecode
    </select>
    <delete id="doDeleteReserv">

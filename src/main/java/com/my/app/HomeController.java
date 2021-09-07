@@ -116,6 +116,7 @@ public class HomeController {
 			jo.put("roomname", bookinfo.get(i).getRoomname());
 			jo.put("name", bookinfo.get(i).getName());
 			jo.put("mobile", bookinfo.get(i).getMobile());
+			jo.put("price", bookinfo.get(i).getPrice());
 			
 			ja.add(jo);
 		}
@@ -188,8 +189,9 @@ public class HomeController {
 		String checkout=hsr.getParameter("checkout");
 		String name=hsr.getParameter("name");
 		String mobile=hsr.getParameter("mobile");
+		int price = Integer.parseInt(hsr.getParameter("price"));
 		iBook book=sqlSession.getMapper(iBook.class);
-		book.doAddReserv(rcode, person, checkin, checkout, name, mobile);
+		book.doAddReserv(rcode, person, checkin, checkout, name, mobile, price);
 		return "ok";
 	}
 	

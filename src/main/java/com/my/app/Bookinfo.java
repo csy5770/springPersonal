@@ -10,10 +10,11 @@ public class Bookinfo {
 	private String roomname;
 	private String mobile;
 	private String typename;
+	private int price;
 	
 	public Bookinfo() {}
 	public Bookinfo(int bookcode, int roomcode, int person, String checkin, String checkout, String roomname,
-			String mobile, String typename,String name) {
+			String mobile, String typename,String name,int price) {
 		this.bookcode = bookcode;
 		this.roomcode = roomcode;
 		this.person = person;
@@ -23,6 +24,7 @@ public class Bookinfo {
 		this.mobile = mobile;
 		this.typename = typename;
 		this.name=name;
+		this.price=price;
 	}
 	public String getTypename() {
 		return typename;
@@ -78,6 +80,12 @@ public class Bookinfo {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	
 }
