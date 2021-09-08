@@ -116,6 +116,10 @@ $(document)
 		alert('조회 전 예약 기간을 선택하세요.');
 		return false;
 	}
+	if($('#sDate').val()>=$('#eDate').val()) {
+		alert('예약 시작일과 종료일을 맞게 선택하세요.')
+		return false;
+	}
 	$.post("http://localhost:8079/getReservList",{checkin:$('#sDate').val(),checkout:$('#eDate').val()},function(result){
 		$('#reserveList').empty();
 		$.each(result,function(ndx,value) {
