@@ -135,6 +135,7 @@ public class HomeController {
 			jo.put("roomcode", bookinfo.get(i).getRoomcode());
 			jo.put("typename", bookinfo.get(i).getTypename());
 			jo.put("person", bookinfo.get(i).getPerson());
+			jo.put("howmany", bookinfo.get(i).getHowmany());
 			jo.put("checkin", bookinfo.get(i).getCheckin());
 			jo.put("checkout", bookinfo.get(i).getCheckout());
 			jo.put("roomname", bookinfo.get(i).getRoomname());
@@ -177,6 +178,17 @@ public class HomeController {
 				Integer.parseInt(hsr.getParameter("howmuch")));
 		return "ok";
 	}
+	@RequestMapping(value="/updateBook",method = RequestMethod.POST,
+			produces="application/text; charset=utf8")
+	@ResponseBody
+	public String updateBook(HttpServletRequest hsr) {
+		iBook book=sqlSession.getMapper(iBook.class);
+		book.doUpdateBook(Integer.parseInt(hsr.getParameter("bookcode")),
+				Integer.parseInt(hsr.getParameter("person")),
+				hsr.getParameter("name"),
+				hsr.getParameter("mobile"));
+		return "ok";
+	}
 	
 	@RequestMapping(value="/signin",method = RequestMethod.POST,
 			produces="application/text; charset=utf8")
@@ -209,13 +221,14 @@ public class HomeController {
 		int rcode=Integer.parseInt(hsr.getParameter("roomcode"));
 		System.out.println(rcode);
 		int person=Integer.parseInt(hsr.getParameter("person"));
+		int max_person=Integer.parseInt(hsr.getParameter("max_person"));
 		String checkin=hsr.getParameter("checkin");
 		String checkout=hsr.getParameter("checkout");
 		String name=hsr.getParameter("name");
 		String mobile=hsr.getParameter("mobile");
 		int price = Integer.parseInt(hsr.getParameter("price"));
 		iBook book=sqlSession.getMapper(iBook.class);
-		book.doAddReserv(rcode, person, checkin, checkout, name, mobile, price);
+		book.doAddReserv(rcode, person, checkin, checkout, name, mobile, price,max_person);
 		return "ok";
 	}
 	

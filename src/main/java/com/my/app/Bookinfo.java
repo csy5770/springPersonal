@@ -4,6 +4,7 @@ public class Bookinfo {
 	private int bookcode;
 	private int roomcode;
 	private int person;
+	private int howmany;
 	private String name;
 	private String checkin;
 	private String checkout;
@@ -11,10 +12,11 @@ public class Bookinfo {
 	private String mobile;
 	private String typename;
 	private int price;
+	private int max_person;
 	
 	public Bookinfo() {}
 	public Bookinfo(int bookcode, int roomcode, int person, String checkin, String checkout, String roomname,
-			String mobile, String typename,String name,int price) {
+			String mobile, String typename,String name,int price,int howmany,int max_person) {
 		this.bookcode = bookcode;
 		this.roomcode = roomcode;
 		this.person = person;
@@ -25,6 +27,21 @@ public class Bookinfo {
 		this.typename = typename;
 		this.name=name;
 		this.price=price;
+		this.howmany=howmany;
+		this.max_person=max_person;
+	}
+	
+	public int getMax_person() {
+		return max_person;
+	}
+	public void setMax_person(int max_person) {
+		this.max_person = max_person;
+	}
+	public int getHowmany() {
+		return howmany;
+	}
+	public void setHowmany(int howmany) {
+		this.howmany = howmany;
 	}
 	public String getTypename() {
 		return typename;

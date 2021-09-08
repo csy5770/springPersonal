@@ -52,12 +52,13 @@ table {
 <table>
 	<tr>
 		<td>객실명</td>
-			<td><input type=text id=txtRoomName></td>
+			<td><input type=text id="txtRoomName" readonly></td>
+			<td><input type=hidden id=bookCode></td>
 			<td><input type=hidden id=roomCode></td>
 	</tr>
 	<tr>
 		<td>객실종류</td>
-			<td><input type=text id=txtType></td>
+			<td><input type=text id="txtType" readonly></td>
 	</tr>
 	<tr>
 		<td>예약인원</td>
@@ -65,15 +66,15 @@ table {
 	</tr>
 	<tr>
 		<td>최대인원</td>
-			<td><input type=number id=txtMaxNum> 명</td>
+			<td><input type=number id="txtMaxNum" readonly> 명</td>
 	</tr>
 	<tr>
 		<td>예약기간</td>
-			<td><input type=date id=sDate2> ~ <input type=date id=eDate2></td>
+			<td><input type=date id="sDate2" readonly> ~ <input type=date id="eDate2" readonly></td>
 	</tr>
 	<tr>
 		<td>총 숙박비</td>
-			<td><input type=number id=txtPrice> 원</td>
+			<td><input type=number id="txtPrice" readonly> 원</td>
 	</tr>
 	<tr>
 		<td>예약자명</td>
@@ -87,6 +88,7 @@ table {
     	<td colspan=2 align=center>
     		<input type=button value='예약완료' id=btnAdd>&nbsp;
     		<input type=button value='비우기' id=btnEmpty>&nbsp;
+    		<input type=button value='예약수정' id=btnUpdate>&nbsp;
     		<input type=button value='예약취소' id=btnCancel>&nbsp;
     	</td>
 	</tr>
@@ -117,7 +119,7 @@ $(document)
 	$.post("http://localhost:8079/getReservList",{checkin:$('#sDate').val(),checkout:$('#eDate').val()},function(result){
 		$('#reserveList').empty();
 		$.each(result,function(ndx,value) {
-			str='<option value="'+value['bookcode']+'">'+value['roomcode']+','+value['roomname']+','+value['typename']+','+value['person']+','+value['checkin']+'~'+value['checkout']+','+value['name']+','+value['mobile']+','+value['price']+'</option>';
+			str='<option value="'+value['bookcode']+'">'+value['roomcode']+','+value['roomname']+','+value['typename']+','+value['person']+','+value['howmany']+','+value['checkin']+','+value['checkout']+','+value['name']+','+value['mobile']+','+value['price']+'</option>';
 			$('#reserveList').append(str);	
 		})
 	},'json');
@@ -132,6 +134,44 @@ $(document)
 	},'json');
 })
 
+.on('click', '#reserveList option:selected', function(){
+	let info = $(this).text().split(",");
+	let code = $(this).val();
+	console.log(info);
+	$('#bookCode').val(code);
+	$('#roomCode').val(info[0]);
+	$('#txtRoomName').val(info[1]);
+	$('#txtType').val(info[2]);
+	$('#txtNum').val(info[3]);
+	$('#txtMaxNum').val(info[4]);
+	$('#sDate2').val(info[5]);
+	$('#eDate2').val(info[6]);
+	$('#txtName').val(info[7]);
+	$('#mobile').val(info[8]);
+	$('#txtPrice').val(info[9]);
+	return false;	
+})
+
+.on('click','#btnUpdate',function(){
+	let bookcode = $('#reserveList option:selected').val();
+	let person = $('#txtNum').val();
+	let name = $('#txtName').val();
+	let mobile = $('#mobile').val();
+	if(person>$('#txtMaxNum').val()) {
+		alert('최대 인원 수를 초과할 수 없습니다.');
+		return false;
+	}
+	if(person==''||name==''||mobile=='') {
+		alear('수정 내용을 입력해주세요.');
+		return false;
+	}
+	$.post('http://localhost:8079/updateBook',{bookcode:bookcode,person:person,name:name,mobile:mobile},
+			function(result){
+				if(result=='ok'){
+					location.reload();
+				}
+	},'text');	
+})
 .on('click','#selRoom option:selected',function(){
 	let info = $(this).text().split(",");
 	let code = $(this).val();
@@ -161,6 +201,7 @@ $(document)
 .on('click','#btnAdd',function(){
 	let roomcode=$('#roomCode').val();
 	let person=$('#txtNum').val();
+	let max_person=$('#txtMaxNum').val();
 	let checkin=$('#sDate2').val();
 	let checkout=$('#eDate2').val();
 	let name=$('#txtName').val();
@@ -177,7 +218,7 @@ $(document)
 		return false;
 	}
 	else {
-		$.post('http://localhost:8079/addReserv',{roomcode:roomcode,person:person,checkin:checkin,checkout:checkout,name:name,mobile:mobile,price:price},
+		$.post('http://localhost:8079/addReserv',{roomcode:roomcode,person:person,checkin:checkin,checkout:checkout,name:name,mobile:mobile,price:price,max_person:max_person},
 				function(result){
 					if(result=='ok'){
 						location.reload();

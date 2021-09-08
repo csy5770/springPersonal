@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.my.app.iBook">
    <insert id="doAddReserv">
-   		insert into booking(bookcode,roomcode,person,checkin,checkout,name,mobile,price) 
-   		values(seq_book.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7})
+   		insert into booking(bookcode,roomcode,person,checkin,checkout,name,mobile,price,max_person) 
+   		values(seq_book.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8})
    </insert>
    <select id="getReservList" resultType="com.my.app.Bookinfo">
      select a.bookcode,b.roomcode roomcode, b.name roomname,c.name typename,
-     		a.person, a.checkin,a.checkout,a.name,a.mobile,a.price
+     		a.person, b.howmany, a.checkin,a.checkout,a.name,a.mobile,a.price
      		from booking a, room b, roomtype c
      		where <![CDATA[(a.checkout > #{param1} and a.checkin < #{param2})]]>
      		and a.roomcode=b.roomcode and b.type=c.typecode
@@ -27,4 +27,8 @@
       select roomcode from booking where (checkin between #{param1} and to_date(#{param2})-1) 
       or (checkout between to_date(#{param1})+1 and to_date(#{param2})) or <![CDATA[(checkin<#{param1} and checkout>to_date(#{param2})-1))]]> 
    </select>
+   <update id="doUpdateBook">
+   		update booking set person=#{param2},name=#{param3},mobile=#{param4}
+   		where bookcode=#{param1}
+   </update>
 </mapper>

@@ -6,5 +6,6 @@ public interface iBook {
 	ArrayList<Roominfo> getAvailRoom(String checkin, String checkout, int typecode);
 	ArrayList<Bookinfo> getReservList(String checkin, String checkout);
 	void doDeleteReserv(int bookcode);
-	void doAddReserv(int roomcode,int person,String checkin,String checkout,String name,String mobile,int price);
+	void doAddReserv(int roomcode,int person,String checkin,String checkout,String name,String mobile,int price,int max_person);
+	void doUpdateBook(int bookcode,int person, String name, String mobile);
 }
