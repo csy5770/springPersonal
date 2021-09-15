@@ -17,7 +17,7 @@
 
 .input-form { 
 	max-width: 1920px; 
-	margin-top: 10px; 
+	margin-top: 80px; 
 	padding: 32px; 
 	background: #fff; 
 	-webkit-border-radius: 10px; 
@@ -59,6 +59,7 @@ border-radius: 10px;
 				</table>
 				<br><br>
 				<div class=area1 style='float:left;'>
+				<br>
 					<table id="table1">
 						<tr>
 							<td>예약기간</td>
@@ -87,6 +88,7 @@ border-radius: 10px;
 						 	</td>
 					 </tr>
 					</table>
+					<br>
 				</div>
 				<div class=area2 style='float:left; margin-left: 150px;'>
 				<br>
@@ -137,7 +139,7 @@ border-radius: 10px;
 				    	</td>
 					</tr>
 				</table>
-				<br>
+				<br><br>
 				</div>
 				
 				<div class=area3 style="margin-left:350px;">
