@@ -1,60 +1,110 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@ page session="false" %>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>객실관리</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title>객실관리</title>
+<style> body { 
+	min-height: 100vh; 
+	background: -webkit-gradient(linear, left bottom, right top, from(#92b5db), to(#1d466c)); 
+	background: -webkit-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%); 
+	background: -moz-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%); 
+	background: -o-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%); 
+	background: linear-gradient(to top right, #92b5db 0%, #1d466c 100%); 
+} 
+.input-form { 
+	max-width: 800px; 
+	margin-top: 80px; 
+	padding: 32px; 
+	background: #fff; 
+	-webkit-border-radius: 10px; 
+	-moz-border-radius: 10px; 
+	border-radius: 10px; 
+	-webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15); 
+	-moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15); 
+	box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15) 
+}
+.area1 {
+border: 1px solid #444444;
+border-radius: 10px;
+}
+</style>
 </head>
-<body>
-    <a href='/room' id="roomControl">객실관리</a>
-    <a href='/booking' id="roomReserve">예약관리</a>
-    <a href="/logout">로그아웃</a>
-    <br>
-	<table border=1>
-	<tr>
-		<td>        
-	        <select size=10 style='width:250px;' id=selRoom>
-	        <%-- <c:forEach items="${list}" var="room">
-	        	<option id=rn value='${room.roomcode}'>${room.roomname},${room.typename},${room.howmany},${room.howmuch}</option>
-	        </c:forEach> --%>
-	        </select>
-        </td>
-        <td>
-        	<table>
-        	<tr>
-        		<td align=right>객실명</td>
-        		<td><input type=text id=txtName><input type=text id=roomcode></td>
-        	</tr>
-        	<tr>
-        		<td align=right>타입</td>
-        		<td>
-        			<select size=5 style='width:120px;' id=selType>
-        			<c:forEach items="${list2}" var="roomtype">
-	        			<option id=tc value='${roomtype.typecode}'>${roomtype.name}</option>
-	        		</c:forEach> 
-        			</select>	
-        		</td>
-        	</tr>
-        	<tr>
-        		<td align=right>최대숙박인원</td><td><input type=number id=txtNum></td>
-        	</tr>
-        	<tr>
-        		<td align=right>1박가격</td><td><input type=number id=txtPrice></td>
-        	</tr>
-        	<tr>
-        		<td colspan=2 align=center>
-        			<input type=button value='등록' id=btnAdd>&nbsp;
-        			<input type=button value='삭제' id=btnDelete>&nbsp;
-        			<input type=button value='취소' id=btnEmpty>&nbsp;
-        		</td>
-        	</tr>
-        	</table>
-        </td>
-      </tr>
-      </table> 
-
+<body> 
+	<div class="container"> 
+		<div class="input-form-backgroud row"> 
+			<div class="input-form col-md-12 mx-auto">
+				<h4 class="mb-3">객실관리</h4>
+				<table>
+					<tr>
+						<td>
+							<input type="button" id="roomControl" class="btn btn-primary btn-lg btn-block" value="객실관리" onclick="location.href ='/room';" style="width:200px;">	
+						</td>
+						<td>
+							<input type="button" id="roomReserve" class="btn btn-primary btn-lg btn-block" value="예약관리" onclick="location.href ='/booking';" style="width:200px;">	
+						</td>
+						<td>
+							<input type="button" class="btn btn-primary btn-lg btn-block" value="로그아웃" onclick="location.href ='/logout';" style="width:200px;">	
+						</td>
+					</tr>
+				</table>
+				<br><br>
+				<div class='area1'>
+				<br><br>
+				<table>
+				<tr>
+					<td>        
+				        <select size=10 style='width:250px;' id=selRoom>
+				        <%-- <c:forEach items="${list}" var="room">
+				        	<option id=rn value='${room.roomcode}'>${room.roomname},${room.typename},${room.howmany},${room.howmuch}</option>
+				        </c:forEach> --%>
+				        </select>
+				        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        </td>
+			        
+			        <td>
+			        	<table>
+			        	<tr>
+			        		<td align=right>객실명</td>
+			        		<td><input type=text id=txtName><input type=hidden id=roomcode></td>
+			        	</tr>
+			        	<tr>
+			        		<td align=right>타입</td>
+			        		<td>
+			        			<select size=5 style='width:120px;' id=selType>
+			        			<c:forEach items="${list2}" var="roomtype">
+				        			<option id=tc value='${roomtype.typecode}'>${roomtype.name}</option>
+				        		</c:forEach> 
+			        			</select>	
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td align=right>최대숙박인원</td><td><input type=number id=txtNum></td>
+			        	</tr>
+			        	<tr>
+			        		<td align=right>1박가격</td><td><input type=number id=txtPrice></td>
+			        	</tr>
+			        	<tr>
+			        		<td colspan=2 align=center>
+			        			<input type=button value='등록' id=btnAdd>&nbsp;
+			        			<input type=button value='삭제' id=btnDelete>&nbsp;
+			        			<input type=button value='취소' id=btnEmpty>&nbsp;
+			        		</td>
+			        	</tr>
+			        	</table>
+			        </td>
+			      </tr>
+			      </table>
+				<br><br>
+				</div> 					  
+ 			</div>
+ 		</div> 
+ 		<footer class="my-3 text-center text-small"> 
+ 			<p class="mb-1">&copy; 2021 CSY</p> 
+ 		</footer>
+ 	</div> 
 </body>
 <script src='https://code.jquery.com/jquery-3.5.0.js'></script>
 <script>

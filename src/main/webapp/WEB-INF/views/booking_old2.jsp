@@ -1,163 +1,112 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" %>
-<%@ page session="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<title>예약관리</title>
-<style> body { 
-	min-height: 100vh; 
-	background: -webkit-gradient(linear, left bottom, right top, from(#92b5db), to(#1d466c)); 
-	background: -webkit-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%); 
-	background: -moz-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%); 
-	background: -o-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%); 
-	background: linear-gradient(to top right, #92b5db 0%, #1d466c 100%); 
+<title>예약관리</title>
+<style>
+table {
+	width: 100%;
+	border: 1px solid #444444;
 }
-
-.input-form { 
-	max-width: 1920px; 
-	margin-top: 10px; 
-	padding: 32px; 
-	background: #fff; 
-	-webkit-border-radius: 10px; 
-	-moz-border-radius: 10px; 
-	border-radius: 10px; 
-	-webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15); 
-	-moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15); 
-	box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15) 
-}
-
-.area1{
-border: 1px solid #444444;
-border-radius: 10px;
-}
-.area2 {
-border: 1px solid #444444;
-border-radius: 10px;
-}
-
 </style>
 </head>
-<body> 
-	<div class="container"> 
-		<div class="input-form-backgroud row"> 
-			<div class="input-form col-md-12 mx-auto"> 
-				<h4 class="mb-3">예약관리</h4>
-				<table>
-					<tr>
-						<td>
-							<input type="button" id="roomControl" class="btn btn-primary btn-lg btn-block" value="객실관리" onclick="location.href ='/room';" style="width:200px;">	
-						</td>
-						<td>
-							<input type="button" id="roomReserve" class="btn btn-primary btn-lg btn-block" value="예약관리" onclick="location.href ='/booking';" style="width:200px;">	
-						</td>
-						<td>
-							<input type="button" class="btn btn-primary btn-lg btn-block" value="로그아웃" onclick="location.href ='/logout';" style="width:200px;">	
-						</td>
-					</tr>
-				</table>
-				<br><br>
-				<div class=area1 style='float:left;'>
-					<table id="table1">
-						<tr>
-							<td>예약기간</td>
-								<td><input type=date id=sDate> ~ <input type=date id=eDate></td>
-						</tr>
-						<tr>
-							<td>객실종류</td>
-								<td>
-									<select size=1 style='width:120px;' id=selType>
-					       			<c:forEach items="${list2}" var="roomtype">
-					        			<option id=tc value='${roomtype.typecode}'>${roomtype.name}</option>
-					        		</c:forEach> 
-					      			</select>
-					      			<input type="button" id='btnSearch' class="btn btn-primary btn-sm" value="조회" style="width:100px;">
-					    		</td>					    		
-					    			
-					 </tr>
-					 <tr>
-					 	<td>예약가능 객실</td>
-					 </tr>
-					 <tr>
-					 		<td colspan=2>
-									<select size=10 style='width:400px;' id=selRoom>
-					 					
-					 				</select>
-						 	</td>
-					 </tr>
-					</table>
-				</div>
-				<div class=area2 style='float:left; margin-left: 150px;'>
-				<br>
-				<table id="table2">
-					<tr>
-						<td>객실명</td>
-							<td><input type=text id="txtRoomName" readonly></td>
-							<td><input type=hidden id=bookCode></td>
-							<td><input type=hidden id=roomCode></td>
-					</tr>
-					<tr>
-						<td>객실종류</td>
-							<td><input type=text id="txtType" readonly></td>
-					</tr>
-					<tr>
-						<td>예약인원</td>
-							<td><input type=number id=txtNum> 명</td>
-					</tr>
-					<tr>
-						<td>최대인원</td>
-							<td><input type=number id="txtMaxNum" readonly> 명</td>
-					</tr>
-					<tr>
-						<td>예약기간</td>
-							<td><input type=date id="sDate2" readonly> ~ <input type=date id="eDate2" readonly></td>
-					</tr>
-					<tr>
-						<td>총 숙박비</td>
-							<td><input type=number id="txtPrice" readonly> 원</td>
-					</tr>
-					<tr>
-						<td>예약자명</td>
-							<td><input type=text id=txtName></td>
-					</tr>
-					<tr>
-						<td>모바일</td>
-							<td><input type=text id=mobile></td>
-					</tr>
-					
-					<tr>
-						
-				    	<td colspan=2 align=center>
-				    		<br><br>
-				    		<input type="button" id='btnAdd' class="btn btn-primary btn-sm" value="예약완료" style="width:80px;">
-				    		<input type="button" id='btnEmpty' class="btn btn-primary btn-sm" value="비우기" style="width:80px;">
-				    		<input type="button" id='btnUpdate' class="btn btn-primary btn-sm" value="예약수정" style="width:80px;">
-				    		<input type="button" id='btnCancel' class="btn btn-primary btn-sm" value="예약취소" style="width:80px;">
-				    	</td>
-					</tr>
-				</table>
-				<br>
-				</div>
-				
-				<div class=area3 style="margin-left:350px;">
-				<table id="table3">
-					<tr>
-						<td colspan=2 align=left>예약된 객실</td>
-					</tr>
-					<tr>
-						<td>
-							<select size=10 style='width:500px;' id=reserveList></select>
-						</td>
-					</tr>
-				</table>
-				</div> 						  
- 			</div>
- 		</div> 
- 		<footer class="my-3 text-center text-small"> 
- 			<p class="mb-1">&copy; 2021 CSY</p> 
- 		</footer>
- 	</div> 
+<body>
+<a href='/room' id="roomControl">객실관리</a>
+<a href='/booking' id="roomReserve">예약관리</a>
+<a href="/logout">로그아웃</a>
+<br>
+
+<div class=area1 style='float:left;'>
+<table>
+	<tr>
+		<td>예약기간</td>
+			<td><input type=date id=sDate> ~ <input type=date id=eDate></td>
+	</tr>
+	<tr>
+		<td>객실종류</td>
+			<td>
+				<select size=1 style='width:120px;' id=selType>
+        			<c:forEach items="${list2}" var="roomtype">
+	        			<option id=tc value='${roomtype.typecode}'>${roomtype.name}</option>
+	        		</c:forEach> 
+       			</select>
+		    	<input type=button id='btnSearch' value='조회'>
+	    	</td>
+	 </tr>
+	 <tr>
+	 	<td>예약가능 객실</td>
+	 </tr>
+	 <tr>
+	 		<td colspan=2>
+ 				<select size=10 style='width:400px;' id=selRoom>
+ 					
+ 				</select>
+	 		</td>
+	 </tr>
+</table>
+</div>
+<div class=area2 style='float:left; margin-left: 50px;'>
+<table>
+	<tr>
+		<td>객실명</td>
+			<td><input type=text id="txtRoomName" readonly></td>
+			<td><input type=hidden id=bookCode></td>
+			<td><input type=hidden id=roomCode></td>
+	</tr>
+	<tr>
+		<td>객실종류</td>
+			<td><input type=text id="txtType" readonly></td>
+	</tr>
+	<tr>
+		<td>예약인원</td>
+			<td><input type=number id=txtNum> 명</td>
+	</tr>
+	<tr>
+		<td>최대인원</td>
+			<td><input type=number id="txtMaxNum" readonly> 명</td>
+	</tr>
+	<tr>
+		<td>예약기간</td>
+			<td><input type=date id="sDate2" readonly> ~ <input type=date id="eDate2" readonly></td>
+	</tr>
+	<tr>
+		<td>총 숙박비</td>
+			<td><input type=number id="txtPrice" readonly> 원</td>
+	</tr>
+	<tr>
+		<td>예약자명</td>
+			<td><input type=text id=txtName></td>
+	</tr>
+	<tr>
+		<td>모바일</td>
+			<td><input type=text id=mobile></td>
+	</tr>
+	<tr>
+    	<td colspan=2 align=center>
+    		<input type=button value='예약완료' id=btnAdd>&nbsp;
+    		<input type=button value='비우기' id=btnEmpty>&nbsp;
+    		<input type=button value='예약수정' id=btnUpdate>&nbsp;
+    		<input type=button value='예약취소' id=btnCancel>&nbsp;
+    	</td>
+	</tr>
+</table>
+</div>
+<div class=area3 style='float:left; margin-left: 50px;'>
+<table border=1 id=tbl_list>
+	<tr>
+		<td colspan=2 align=left>예약된 객실</td>
+	</tr>
+	<tr>
+		<td>
+			<select size=10 style='width:500px;' id=reserveList></select>
+		</td>
+	</tr>
+</table>
+</div>
 </body>
 <script src='https://code.jquery.com/jquery-3.5.0.js'></script>
 <script>
@@ -297,5 +246,4 @@ $(document)
 	},'text');
 })
 </script>
-
 </html>

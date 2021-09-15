@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<title>회원가입</title>
+	<title>회원가입</title>
 <style> body { 
 	min-height: 100vh; 
 	background: -webkit-gradient(linear, left bottom, right top, from(#92b5db), to(#1d466c)); 
@@ -38,28 +38,19 @@
 						<div class="col-md-6 mb-3"> 
 							<label for="name">이름</label> 
 							<input type="text" class="form-control" id="name" placeholder="" value="" name="rName" required>
-							<div class="invalid-feedback">
-								이름을 입력해주세요. 
-							</div> 
 						</div> 
 					</div> 
 					<div class="mb-3">
 						<label for="newid">아이디</label>
 						<input type="text" class="form-control" id="newid" name="newid" required>
-						<div class="invalid-feedback">
-							아이디를 입력해주세요. 
-						</div> 
 					</div> 
 					<div class="mb-3"> 
 						<label for="password">암호</label> 
 						<input type="password" class="form-control" name="passcode1" id="pw1" required>
-						<div class="invalid-feedback">
-							암호를 입력해주세요.
-						</div>
 					</div> 
 					<div class="mb-3">
 						<label for="password2">암호 확인</label> 
-						<input type="password" class="form-control" name="passcode2" id="pw2">
+						<input type="password" class="form-control" name="passcode2" id="pw2" required>
  					</div> 
  					<br>
  					<input type="submit" class="btn btn-primary btn-lg btn-block" type="submit" value="회원가입"> 					 
