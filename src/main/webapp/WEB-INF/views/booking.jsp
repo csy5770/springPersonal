@@ -60,7 +60,7 @@ border-radius: 10px;
 				<br><br>
 				<div class=area1 style='float:left;'>
 				<br>
-					<table id="table1">
+					<table id="table1" style="margin-left:20px;">
 						<tr>
 							<td>예약기간</td>
 								<td><input type=date id=sDate> ~ <input type=date id=eDate></td>
@@ -92,7 +92,7 @@ border-radius: 10px;
 				</div>
 				<div class=area2 style='float:left; margin-left: 150px;'>
 				<br>
-				<table id="table2">
+				<table id="table2" style="margin-left:20px;">
 					<tr>
 						<td>객실명</td>
 							<td><input type=text id="txtRoomName" readonly></td>
@@ -142,7 +142,7 @@ border-radius: 10px;
 				<br><br>
 				</div>
 				
-				<div class=area3 style="margin-left:350px;">
+				<div class=area3 style="margin-left:280px;">
 				<table id="table3">
 					<tr>
 						<td colspan=2 align=left>예약된 객실</td>

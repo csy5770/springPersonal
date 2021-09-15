@@ -53,7 +53,8 @@ border-radius: 10px;
 				<br><br>
 				<div class='area1'>
 				<br><br>
-				<table>
+				<table style="margin-left:20px;">
+				<th>객실 목록</th>
 				<tr>
 					<td>        
 				        <select size=10 style='width:250px;' id=selRoom>
