@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="/resource/bootstrap/css/bootstrap.css">
 <title>예약관리</title>
 <style>
 table {
@@ -108,6 +109,7 @@ table {
 </div>
 </body>
 <script src='https://code.jquery.com/jquery-3.5.0.js'></script>
+<script type="text/javascript" src="/resource/bootstrap/js/bootstrap.js"></script>
 <script>
 
 $(document)
