@@ -91,9 +91,11 @@ border-radius: 10px;
 			        	</tr>
 			        	<tr>
 			        		<td colspan=2 align=center>
-			        			<input type=button value='등록' id=btnAdd>&nbsp;
-			        			<input type=button value='삭제' id=btnDelete>&nbsp;
-			        			<input type=button value='취소' id=btnEmpty>&nbsp;
+			        			<br>
+			        			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        			<input type=button value='등록' class="btn btn-primary btn-sm" id=btnAdd>&nbsp;
+			        			<input type=button value='삭제' class="btn btn-primary btn-sm" id=btnDelete>&nbsp;
+			        			<input type=button value='취소' class="btn btn-primary btn-sm" id=btnEmpty>&nbsp;
 			        		</td>
 			        	</tr>
 			        	</table>
